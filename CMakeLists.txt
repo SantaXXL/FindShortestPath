@@ -20,21 +20,5 @@ set(sources
 	"src/ProgramInterface.c"
 )
 
-set(headers
-	"include/Constants.h"
-	"include/ErrorCodes.h"
-	"include/ErrorsHandling.h"
-	"include/ErrorsMessages.h"
-	"include/FindShortestPath.h"
-	"include/GraphCreation.h"
-	"include/GraphRepresentation.h"
-	"include/ListCreation.h"
-	"include/ListRepresentation.h"
-	"include/ManageCities.h"
-	"include/ManageConnections.h"
-	"include/Menu.h"
-	"include/ProgramInterface.h"
-)
-
-add_executable(Shortest_path ${sources} ${headers})
+add_executable(Shortest_path ${sources})
 
