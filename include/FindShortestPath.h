@@ -7,8 +7,8 @@
  *
  * DESCRIPTION:
  *
- * This file contains definition of structure, that
- * create priority queue.
+ * This file contains the definition of a structure, that
+ * creates a priority queue.
  */
 
 #ifndef SHORTEST_PATH_FINDSHORTESTPATH_H
