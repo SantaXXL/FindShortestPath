@@ -11,8 +11,8 @@
  * create menu interface.
  */
 
-#include <stdio.h>
 #include <limits.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "Constants.h"
@@ -26,7 +26,7 @@
 /* Sets value of global constants which are declared in Constants.h */
 
 const unsigned short int G_CITYS_NAME_LENGTH = 30;
-const unsigned short int MAX_INPUT_MAIN_MENU = 3;        /* MAX_INPUT_MAIN_MENU = 3, 'user's choice', '\n', '\0' */
+const unsigned short int MAX_INPUT_MAIN_MENU = 3; /* MAX_INPUT_MAIN_MENU = 3, 'user's choice', '\n', '\0' */
 
 /* Following strings are defined in ConstantStrings.c file */
 
@@ -45,27 +45,28 @@ extern const char AUTHOR[];
  * calls a function that clears an input buffer.
  */
 
-void getCitysName(manage_cities option, char *citys_name)
+void getCitysName(manage_cities option, char* citys_name)
 {
-    if(option == FIRST_CITY)
+    if (option == FIRST_CITY) {
         printf("Type in first city: ");
-    else if(option == SECOND_CITY)
+    } else if (option == SECOND_CITY) {
         printf("Type in second city: ");
-    else if(option == REMOVE_CITY)
+    } else if (option == REMOVE_CITY) {
         printf("What city do you want to remove: ");
-    else if(option == RENAME_CITY)
+    } else if (option == RENAME_CITY) {
         printf("What city do you want to rename: ");
-    else if(option == NEW_CITYS_NAME)
+    } else if (option == NEW_CITYS_NAME) {
         printf("Type in new city's name: ");
+    }
     fgets(citys_name, G_CITYS_NAME_LENGTH, stdin);
 
     /* Because fgets is retarded and doesn't skip newline character,
      * remove it manually. */
 
-    if(citys_name[strlen(citys_name) - 1] == '\n')
+    if (citys_name[strlen(citys_name) - 1] == '\n') {
         citys_name[strlen(citys_name) - 1] = '\0';
+    }
 }
-
 
 /*
  * FUNCTION NAME: getDistanceBetweenCities
@@ -74,17 +75,15 @@ void getCitysName(manage_cities option, char *citys_name)
  * Function gets a distance between two cities.
  */
 
-void getDistanceBetweenCities(double *distance)
+void getDistanceBetweenCities(double* distance)
 {
     printf("What's the distance between those cities [km]: ");
-    while(scanf("%lf", distance) != 1)
-    {
+    while (scanf("%lf", distance) != 1) {
         clearBuffer();
         fputs("\nType in a number!\n\n", stderr);
         printf("What's the distance between those cities [km]: ");
     }
 }
-
 
 /*
  * FUNCTION NAME: getUsersChoice
@@ -93,11 +92,10 @@ void getDistanceBetweenCities(double *distance)
  * Function gets first 3 signs typed in by user.
  */
 
-void getUsersChoice(char *choice)
+void getUsersChoice(char* choice)
 {
     fgets(choice, MAX_INPUT_MAIN_MENU, stdin);
 }
-
 
 /*
  * FUNCTION NAME: showCityList
@@ -107,20 +105,16 @@ void getUsersChoice(char *choice)
  * list.
  */
 
-void showCityList(const Graph_t *graph)
+void showCityList(const Graph_t* graph)
 {
     int counter = 0;
-    if(graph->head == NULL)
-    {
+    if (graph->head == NULL) {
         puts("\nThere are no cities in the database!");
         return;
-    }
-    else
-    {
-        AdjacencyList_t *temp;
+    } else {
+        AdjacencyList_t* temp;
         puts("\nCities in the database:\n");
-        for(temp = graph->head; temp; temp = temp->next)
-        {
+        for (temp = graph->head; temp; temp = temp->next) {
             puts(temp->from);
             ++counter;
         }
@@ -128,7 +122,6 @@ void showCityList(const Graph_t *graph)
         printf("Totally:                         %d cities\n", counter);
     }
 }
-
 
 /*
  * FUNCTION NAME: showConnections
@@ -138,22 +131,19 @@ void showCityList(const Graph_t *graph)
  * exists in the graph.
  */
 
-void showConnections(const Graph_t *graph)
+void showConnections(const Graph_t* graph)
 {
-    AdjacencyList_t *upper;
-    AdjacencyListNode_t *lower;
-    if(graph->head == NULL)
-    {
+    AdjacencyList_t* upper;
+    AdjacencyListNode_t* lower;
+    if (graph->head == NULL) {
         puts("\nThere are no cities in the database!");
         return;
     }
     int counter = 0;
     printf("\nConnections in the database:\n\n");
-    for(upper = graph->head; upper != NULL; upper = upper->next)
-    {
+    for (upper = graph->head; upper != NULL; upper = upper->next) {
         printf("%s: ", upper->from);
-        for(lower = upper->head; lower != NULL; lower = lower->next)
-        {
+        for (lower = upper->head; lower != NULL; lower = lower->next) {
             printf("%s ", lower->to);
             ++counter;
         }
@@ -162,7 +152,6 @@ void showConnections(const Graph_t *graph)
     printf("------------------------------------------\n");
     printf("Totally:                    %d connections\n", counter / 2);
 }
-
 
 /*
  * FUNCTION NAME: showMenuOptions
@@ -176,12 +165,12 @@ void showConnections(const Graph_t *graph)
 
 void showMenuOptions(unsigned int counter)
 {
-    if((counter % 3) == 0)
+    if ((counter % 3) == 0) {
         printf("\n%s", MENU);
-    else
+    } else {
         printf("Type in the correct choice: ");
+    }
 }
-
 
 /*
  * FUNCTION NAME: showAuthor
@@ -195,7 +184,6 @@ void showAuthor(void)
     puts(AUTHOR);
 }
 
-
 /*
  * FUNCTION NAME: showThePath
  *
@@ -204,32 +192,33 @@ void showAuthor(void)
  * destination to source.
  */
 
-void showThePath(shortest_path path, const char *destination, const char *source, unsigned int destination_number, double *distance_array)
+void showThePath(shortest_path path, const char* destination, const char* source, unsigned int destination_number, double* distance_array)
 {
     /* If there is no path between source and destination. */
 
-    if(distance_array[destination_number] == LLONG_MAX)
-    {
+    if (distance_array[destination_number] == LLONG_MAX) {
         printf("\nCities %s and %s are not connected!\n\n", source, destination);
         printf("Press enter to continue...");
-        if(getchar() != '\n')
+        if (getchar() != '\n') {
             clearBuffer();
+        }
         return;
     }
 
     /* If there is a path between source and destination. */
 
-    shortest_path_list *temp;
+    shortest_path_list* temp;
     printf("\nThe shortest path from %s to %s is:\n\n", source, destination);
-    for(temp = path.head; temp != NULL; temp = temp->next)
-    {
-        if(temp->next != NULL)
+    for (temp = path.head; temp != NULL; temp = temp->next) {
+        if (temp->next != NULL) {
             printf("%s -> ", temp->citys_name);
-        else
+        } else {
             printf("%s", temp->citys_name);
+        }
     }
     printf("\n\nDistance from %s to %s: %.2lfkm.\n\n", source, destination, distance_array[destination_number]);
     printf("Press enter to continue...");
-    if(getchar() != '\n')
+    if (getchar() != '\n') {
         clearBuffer();
+    }
 }

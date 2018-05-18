@@ -7,9 +7,8 @@
  *
  * DESCRIPTION:
  *
- * This file contains functions declarations.
+ * This file contains functions' declarations.
  */
-
 
 #ifndef SHORTEST_PATH_ERRORSHANDLING_H
 #define SHORTEST_PATH_ERRORSHANDLING_H
@@ -18,14 +17,14 @@
 
 /* Declarations */
 
-programError_t checkIfConnectionIsInGraph(const Graph_t *, const char *, const char *);
-programError_t checkIfIsInGraph(const Graph_t *, const char *);
-programError_t checkIfNameIsCorrect(const char *);
+programError_t checkIfConnectionIsInGraph(const Graph_t*, const char*, const char*);
+programError_t checkIfIsInGraph(const Graph_t*, const char*);
+programError_t checkIfNameIsCorrect(const char*);
 programError_t checkIfDistanceIsCorrect(double);
-programError_t checkIfNamesAreTheSame(const char *, const char *);
-programError_t checkUsersChoiceMainMenu(const char *, int *);
-void checkMemory(void *);
+programError_t checkIfNamesAreIdentical(const char*, const char*);
+programError_t checkUsersChoiceMainMenu(const char*, int*);
+void checkMemory(void*);
 void clearBuffer(void);
-void printErrorSystem(systemError_t);
+void printSystemError(systemError_t);
 
 #endif //SHORTEST_PATH_ERRORSHANDLING_H

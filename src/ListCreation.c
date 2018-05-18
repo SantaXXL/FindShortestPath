@@ -13,10 +13,10 @@
  * Creates connections_list and unique_cities_list.
  */
 
+#include <iso646.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <iso646.h>
 
 #include "Constants.h"
 #include "ErrorCodes.h"
@@ -30,33 +30,27 @@
  * FUNCTION NAME: createLists
  *
  * DESCRIPTION:
- * This function main task is to fill lists unique_cities_list and
+ * This function main task is to fill list unique_cities_list and
  * connections_list with proper data.
  */
 
-void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique_cities_list)
+void createLists(ConnectionsList_t* connections_list, UniqueCitiesList_t* unique_cities_list)
 {
     /* Arrays needed to compare strings (cities names) read from DataBase.txt. */
 
     char city1[G_CITYS_NAME_LENGTH], city2[G_CITYS_NAME_LENGTH];
 
-    /* Number of connections between cities in the DataBase.txt file.
-     * Note: if there is a connection from city1 to city2, there is also a connection from city2 to city1. */
+    /* Number of connections between cities in the DataBase.txt file.*/
 
     size_t number_of_connections = 0;
 
     /* Distance between two cites */
 
     double distance;
+    FILE* fp;
 
-    /* Result of fscanf - EOF if reached EOF, 0 or 1 if only 0 or 1 argument. */
-
-    int result;
-    FILE *fp;
-
-    if((fp = fopen("res/DataBase.txt", "r")) == NULL)
-    {
-        printErrorDataBase(CANT_OPEN_FILE);
+    if ((fp = fopen("res/DataBase.txt", "r")) == NULL) {
+        printDataBaseError(CANT_OPEN_FILE);
         return;
     }
 
@@ -64,41 +58,32 @@ void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique
      * Otherwise check if connection was or was not on the list - if was, then return.
      * If was not, then add connection to the list lst and increase number of connections in the graph. */
 
-    while((result = fscanf(fp, "%s %s %lf\n", city1, city2, &distance)) != EOF)
-    {
-        if(result == 0 or result == 1 or result == 2)
-        {
-            printErrorDataBase(BAD_FORMAT);
+    int result;
+    while ((result = fscanf(fp, "%s %s %lf\n", city1, city2, &distance)) != EOF) {
+        if (result == 0 or result == 1 or result == 2) {
+            printDataBaseError(BAD_FORMAT);
             fclose(fp);
             return;
         }
-        if(checkIfNameIsCorrect(city1) != NO_ERROR)
-        {
-            printErrorDataBase(INCORRECT_NAME);
+        if (checkIfNameIsCorrect(city1) != NO_ERROR) {
+            printDataBaseError(INCORRECT_NAME);
             fclose(fp);
             return;
         }
-        if(checkIfNameIsCorrect(city2) != NO_ERROR)
-        {
-            printErrorDataBase(INCORRECT_NAME);
+        if (checkIfNameIsCorrect(city2) != NO_ERROR) {
+            printDataBaseError(INCORRECT_NAME);
             fclose(fp);
             return;
-        }
-        else if(checkIfNamesAreTheSame(city1, city2) != NO_ERROR)
-        {
-            printErrorDataBase(SAME_NAME);
+        } else if (checkIfNamesAreIdentical(city1, city2) != NO_ERROR) {
+            printDataBaseError(IDENTICAL_NAMES);
             fclose(fp);
             return;
-        }
-        else if(distance <= 0)
-        {
-            printErrorDataBase(INCORRECT_DISTANCE);
+        } else if (distance <= 0) {
+            printDataBaseError(INCORRECT_DISTANCE);
             fclose(fp);
             return;
-        }
-        else if(checkIfAlreadyOnTheList(connections_list, city1, city2) != NO_ERROR)
-        {
-            printErrorDataBase(ALREADY_ON_THE_LIST);
+        } else if (checkIfAlreadyOnTheList(connections_list, city1, city2) != NO_ERROR) {
+            printDataBaseError(ALREADY_ON_THE_LIST);
             fclose(fp);
             return;
         }
@@ -106,19 +91,8 @@ void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique
         ++number_of_connections;
     }
 
-    if(0 == number_of_connections)
-    {
-        printErrorDataBase(NO_CONNECTIONS);
-        fclose(fp);
-        return;
-    }
-
-    /* Now check if for every City1-City2 connection there is
-     * City2-City1 connection. */
-
-    if(checkIfConnectionsAreUndirected(connections_list) != NO_ERROR)
-    {
-        printErrorDataBase(DIRECTED_CONNECTION);
+    if (0 == number_of_connections) {
+        printDataBaseError(NO_CONNECTIONS);
         fclose(fp);
         return;
     }
@@ -126,9 +100,8 @@ void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique
     /* And check, if distance from City1->City2 is the same like
      * from City2->City1. */
 
-    if(checkIfDistancesAreOK(connections_list) != NO_ERROR)
-    {
-        printErrorDataBase(DIFFERENT_DISTANCE);
+    if (checkIfDistancesAreOK(connections_list) != NO_ERROR) {
+        printDataBaseError(DIFFERENT_DISTANCE);
         fclose(fp);
         return;
     }
@@ -138,7 +111,6 @@ void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique
     addUniqueCitiesToTheList(connections_list, number_of_connections, unique_cities_list);
     fclose(fp);
 }
-
 
 /*
  * FUNCTION NAME: checkIfAlreadyOnTheList
@@ -152,21 +124,21 @@ void createLists(ConnectionsList_t *connections_list, UniqueCitiesList_t *unique
  * NO_ERROR, if otherwise.
  */
 
-programError_t checkIfAlreadyOnTheList(ConnectionsList_t *connections_list, const char *city1, const char *city2)
+programError_t checkIfAlreadyOnTheList(ConnectionsList_t* connections_list, const char* city1, const char* city2)
 {
-    ConnectionsListNode_t *current;
+    ConnectionsListNode_t* current;
     size_t counter = 0;
-    for(current = connections_list->head; current != NULL; current = current->next)
-    {
-        if((strcmp(city1, current->from) == 0) and ((strcmp(city2, current->to)) == 0))
+    for (current = connections_list->head; current != NULL; current = current->next) {
+        if ((strcmp(city1, current->from) == 0) and ((strcmp(city2, current->to)) == 0)) {
             ++counter;
+        }
     }
-    if(counter != 0)
+    if (counter != 0) {
         return ALREADY_ON_THE_LIST;
-    else
+    } else {
         return NO_ERROR;
+    }
 }
-
 
 /*
  * FUNCTION NAME: addConnectionToTheList
@@ -176,14 +148,14 @@ programError_t checkIfAlreadyOnTheList(ConnectionsList_t *connections_list, cons
  * Note: it's addHead, not addTail way of adding a node.
  */
 
-void addConnectionToTheList(ConnectionsList_t *connections_list, const char *city1, const char *city2, double distance)
+void addConnectionToTheList(ConnectionsList_t* connections_list, const char* city1, const char* city2, double distance)
 {
-    ConnectionsListNode_t *temp = makeConnectionsListNode(city1, city2, distance);
-    if(connections_list->head != NULL)
+    ConnectionsListNode_t* temp = makeConnectionsListNode(city1, city2, distance);
+    if (connections_list->head != NULL) {
         temp->next = connections_list->head;
+    }
     connections_list->head = temp;
 }
-
 
 /*
  * FUNCTION NAME: makeConnectionsListNode
@@ -196,15 +168,15 @@ void addConnectionToTheList(ConnectionsList_t *connections_list, const char *cit
  * node - created node that will be added to ConnectionsList_t *lst.
  */
 
-ConnectionsListNode_t *makeConnectionsListNode(const char *city1, const char *city2, double distance)
+ConnectionsListNode_t* makeConnectionsListNode(const char* city1, const char* city2, double distance)
 {
-    ConnectionsListNode_t *node;
+    ConnectionsListNode_t* node;
 
     node = (ConnectionsListNode_t*)malloc(sizeof(ConnectionsListNode_t));
     checkMemory(node);
-    node->from = (char *)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
+    node->from = (char*)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
     checkMemory(node->from);
-    node->to = (char *)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
+    node->to = (char*)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
     checkMemory(node->to);
 
     strcpy(node->from, city1);
@@ -215,7 +187,6 @@ ConnectionsListNode_t *makeConnectionsListNode(const char *city1, const char *ci
     return node;
 }
 
-
 /*
  * FUNCTION NAME: addUniqueCitiesToTheList
  *
@@ -223,7 +194,7 @@ ConnectionsListNode_t *makeConnectionsListNode(const char *city1, const char *ci
  * Unique cities from DataBase.txt file are being added to unique_cities list.
  */
 
-void addUniqueCitiesToTheList(ConnectionsList_t *connections_list, size_t number_of_connections, UniqueCitiesList_t *unique_cities)
+void addUniqueCitiesToTheList(ConnectionsList_t* connections_list, size_t number_of_connections, UniqueCitiesList_t* unique_cities)
 {
     /* Variables used in loop. */
 
@@ -241,53 +212,50 @@ void addUniqueCitiesToTheList(ConnectionsList_t *connections_list, size_t number
     /* Array that will contain name of every city
      * that is in DataBase.txt file. */
 
-    char **tab_all = malloc(2 * number_of_connections * sizeof(char *));
+    char** tab_all = malloc(2 * number_of_connections * sizeof(char*));
     checkMemory(tab_all);
 
-    for(i = 0; i < 2 * number_of_connections; ++i)
-    {
+    for (i = 0; i < 2 * number_of_connections; ++i) {
         tab_all[i] = (char*)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
         checkMemory(tab_all[i]);
     }
 
-    /* Copy cities names to tab_all array. */
+    /* Copy cities' names to tab_all array. */
 
-    ConnectionsListNode_t *city_node;
+    ConnectionsListNode_t* city_node;
     j = 0;
-    for (city_node = connections_list->head; city_node != NULL; city_node = city_node->next)
-    {
+    for (city_node = connections_list->head; city_node != NULL; city_node = city_node->next) {
         strcpy(tab_all[j++], city_node->from);
         strcpy(tab_all[j++], city_node->to);
     }
 
-    /* Now the tricky part - sort array in
-     * descending alphabetical order.
+    /* Now sort the array in descending alphabetical order.
      * The reason for descending order is the way how we add nodes
      * to the list - function addUniqueCityToTheList adds head to the list, not tail.
-     * So first element from tab_all will end as a last one
+     * So the first element from tab_all will end as the last one
      * on the list.
      * Sorting is being done by built-in qsort function. */
 
-    qsort(tab_all, 2 * number_of_connections, sizeof(char *), stringCmp);
+    qsort(tab_all, 2 * number_of_connections, sizeof(char*), stringCmp);
 
     /* Now add cities to the list.
      * First, add city from tab[0] and then search for
      * unique cities. If one is found, then add it to the list. */
 
     addUniqueCityToTheList(unique_cities, tab_all[0]);
-    for (i = 0; i < 2 * number_of_connections - 1; ++i)
-    {
-        if(0 != strcmp(tab_all[i], tab_all[i + 1]))
+    for (i = 0; i < 2 * number_of_connections - 1; ++i) {
+        if (0 != strcmp(tab_all[i], tab_all[i + 1])) {
             addUniqueCityToTheList(unique_cities, tab_all[i + 1]);
+        }
     }
 
     /* Remove dynamic arrays from the memory. */
 
-    for(i = 0; i < 2 * number_of_connections; ++i)
+    for (i = 0; i < 2 * number_of_connections; ++i) {
         free(tab_all[i]);
+    }
     free(tab_all);
 }
-
 
 /*
  * FUNCTION NAME: addUniqueCityToTheList
@@ -299,18 +267,16 @@ void addUniqueCitiesToTheList(ConnectionsList_t *connections_list, size_t number
  * so on.
  */
 
-void addUniqueCityToTheList(UniqueCitiesList_t *unique_city_list, const char *city)
+void addUniqueCityToTheList(UniqueCitiesList_t* unique_city_list, const char* city)
 {
-    UniqueCitiesListNode_t * node = makeUniqueCityNode(city);
-    if(unique_city_list->head == NULL)
+    UniqueCitiesListNode_t* node = makeUniqueCityNode(city);
+    if (unique_city_list->head == NULL) {
         unique_city_list->head = node;
-    else
-    {
-        node->next = unique_city_list ->head;
+    } else {
+        node->next = unique_city_list->head;
         unique_city_list->head = node;
     }
 }
-
 
 /*
  * FUNCTION NAME: makeUniqueCityNode
@@ -323,17 +289,16 @@ void addUniqueCityToTheList(UniqueCitiesList_t *unique_city_list, const char *ci
  * node - created UniqueCitiesListNode_t type node.
  */
 
-UniqueCitiesListNode_t *makeUniqueCityNode(const char *city)
+UniqueCitiesListNode_t* makeUniqueCityNode(const char* city)
 {
-    UniqueCitiesListNode_t *node = (UniqueCitiesListNode_t*)malloc(sizeof(UniqueCitiesListNode_t));
+    UniqueCitiesListNode_t* node = (UniqueCitiesListNode_t*)malloc(sizeof(UniqueCitiesListNode_t));
     checkMemory(node);
-    node->city = (char *)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
+    node->city = (char*)malloc(G_CITYS_NAME_LENGTH * sizeof(char));
     checkMemory(node->city);
     node->next = NULL;
     strcpy(node->city, city);
     return node;
 }
-
 
 /*
  * FUNCTION NAME: stringCmp
@@ -353,50 +318,10 @@ UniqueCitiesListNode_t *makeUniqueCityNode(const char *city)
  * Note: This function is case-sensitive, f.e. york and York are not the same.
  */
 
-int stringCmp(const void *p1, const void *p2)
+int stringCmp(const void* p1, const void* p2)
 {
-    return strcmp(* (char * const *) p1, * (char * const *) p2);
+    return strcmp(*(char* const*)p1, *(char* const*)p2);
 }
-
-
-/*
- * FUNCTION NAME: checkIfConnectionsAreUndirected
- *
- * DESCRIPTION:
- * Functions checks, if connections are undirected, i.e.
- * checks, if there is A-B and B-A for every connection in
- * DataBase.txt
- *
- * RETURNS:
- * NO_ERROR - if everything is fine.
- *
- * DIRECTED_CONNECTION - if there is A-B connection
- * and there is not B-A connection in DataBase.txt file.
- */
-
-programError_t checkIfConnectionsAreUndirected(const ConnectionsList_t *connections_list)
-{
-    char city1[G_CITYS_NAME_LENGTH];
-    char city2[G_CITYS_NAME_LENGTH];
-    ConnectionsListNode_t *outer, *inner;
-    unsigned int number_of_connections;
-
-    for(outer = connections_list->head; outer != NULL; outer = outer->next)
-    {
-        number_of_connections = 0;
-        strcpy(city1, outer->from);
-        strcpy(city2, outer->to);
-        for(inner = connections_list->head; inner != NULL; inner = inner->next)
-        {
-            if(strcmp(city2, inner->from) == 0 and strcmp(city1, inner->to) == 0)
-                ++number_of_connections;
-        }
-        if(number_of_connections == 0)
-            return DIRECTED_CONNECTION;
-    }
-    return NO_ERROR;
-}
-
 
 /*
  * FUNCTION NAME: checkIfDistancesAreOK
@@ -411,24 +336,22 @@ programError_t checkIfConnectionsAreUndirected(const ConnectionsList_t *connecti
  * DIFFERENT_DISTANCE - if it ain't.
  */
 
-programError_t checkIfDistancesAreOK(const ConnectionsList_t *connections_list)
+programError_t checkIfDistancesAreOK(const ConnectionsList_t* connections_list)
 {
     char city1[G_CITYS_NAME_LENGTH];
     char city2[G_CITYS_NAME_LENGTH];
     ConnectionsListNode_t *outer, *inner;
     double distance;
 
-    for(outer = connections_list->head; outer != NULL; outer = outer->next)
-    {
+    for (outer = connections_list->head; outer != NULL; outer = outer->next) {
         strcpy(city1, outer->from);
         strcpy(city2, outer->to);
         distance = outer->distance;
-        for(inner = connections_list->head; inner != NULL; inner = inner->next)
-        {
-            if(strcmp(city2, inner->from) == 0 and strcmp(city1, inner->to) == 0)
-            {
-                if(distance != inner->distance)
+        for (inner = connections_list->head; inner != NULL; inner = inner->next) {
+            if (strcmp(city2, inner->from) == 0 and strcmp(city1, inner->to) == 0) {
+                if (distance != inner->distance) {
                     return DIFFERENT_DISTANCE;
+                }
             }
         }
     }

@@ -14,8 +14,7 @@
 #ifndef SHORTEST_PATH_ERROR_CODES_H
 #define SHORTEST_PATH_ERROR_CODES_H
 
-typedef enum programError
-{
+typedef enum programError {
     ALREADY_ON_THE_LIST,
     BAD_FORMAT,
     CANT_OPEN_FILE,
@@ -25,6 +24,7 @@ typedef enum programError
     DIFFERENT_DISTANCE,
     DIRECTED_CONNECTION,
     EMPTY_GRAPH,
+    IDENTICAL_NAMES,
     INCORRECT_DISTANCE,
     INCORRECT_NAME,
     NO_SUCH_CITY,
@@ -32,13 +32,11 @@ typedef enum programError
     NO_CONNECTIONS,
     NO_DIGIT,
     NO_ERROR,
-    SAME_NAME,
     TOO_MANY_SIGNS,
-}programError_t;
+} programError_t;
 
-typedef enum systemError
-{
+typedef enum systemError {
     CANT_ALLOCATE_MEMORY,
-}systemError_t;
+} systemError_t;
 
 #endif //SHORTEST_PATH_ERRORSCODES_H

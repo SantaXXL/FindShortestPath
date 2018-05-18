@@ -7,7 +7,7 @@
  *
  * DESCRIPTION:
  *
- * main.c file, contains main() function definition.
+ * Main.c file, contains main() function.
  */
 
 /**********************************************************************************************************************/

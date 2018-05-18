@@ -10,14 +10,13 @@
  * This file contains functions declarations.
  */
 
-
 #ifndef SHORTEST_PATH_ERRORSMESSAGES_H
 #define SHORTEST_PATH_ERRORSMESSAGES_H
 
 /* Declarations */
 
-void printErrorDataBase(programError_t);
-void printErrorSystem(systemError_t);
+void printDataBaseError(programError_t);
+void printSystemError(systemError_t);
 void printErrorUsersActions(programError_t);
 
 #endif //SHORTEST_PATH_ERRORSMESSAGES_H

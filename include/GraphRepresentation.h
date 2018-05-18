@@ -13,25 +13,22 @@
 #ifndef SHORTEST_PATH_GRAPHREPRESANTATION_H
 #define SHORTEST_PATH_GRAPHREPRESANTATION_H
 
-typedef struct AdjacencyListNode
-{
-    struct AdjacencyListNode *next;
-    char *to;
+typedef struct AdjacencyListNode {
+    struct AdjacencyListNode* next;
+    char* to;
     double distance;
     unsigned int ordinal_number;
-}AdjacencyListNode_t;
+} AdjacencyListNode_t;
 
-typedef struct AdjacencyList
-{
-    char *from;
-    struct AdjacencyList *next;
-    struct AdjacencyListNode *head;
+typedef struct AdjacencyList {
+    char* from;
+    struct AdjacencyList* next;
+    struct AdjacencyListNode* head;
     unsigned int ordinal_number;
-}AdjacencyList_t;
+} AdjacencyList_t;
 
-typedef struct Graph
-{
-    struct AdjacencyList *head;
-}Graph_t;
+typedef struct Graph {
+    struct AdjacencyList* head;
+} Graph_t;
 
 #endif //SHORTEST_PATH_GRAPHREPRESANTATION_H

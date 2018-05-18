@@ -57,4 +57,3 @@ Wroclaw ZielonaGora 156.70
 Zakopane Katowice 166.70
 Zakopane Rzeszow 246.70
 ZielonaGora Szczecin 223.00
-ZielonaGora Wroclaw 156.70

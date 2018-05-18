@@ -20,5 +20,5 @@ set(sources
 	"src/ProgramInterface.c"
 )
 
-add_executable(ShortestPath ${sources})
+add_executable(${PROJECT_NAME} ${sources})
 

@@ -16,31 +16,26 @@
 
 /* Following 2 structures will be used to create ConnectionsList_t *connections_list. */
 
-typedef struct ConnectionsListNode
-{
-    struct ConnectionsListNode *next;
-    char *from;
-    char *to;
+typedef struct ConnectionsListNode {
+    struct ConnectionsListNode* next;
+    char* from;
+    char* to;
     double distance;
-}ConnectionsListNode_t;
+} ConnectionsListNode_t;
 
-typedef struct ConnectionsList
-{
-    struct ConnectionsListNode *head;
-}ConnectionsList_t;
-
+typedef struct ConnectionsList {
+    struct ConnectionsListNode* head;
+} ConnectionsList_t;
 
 /* Following 2 structures will be used to create unique_cities list. */
 
-typedef struct UniqueCitiesListNode
-{
-    struct UniqueCitiesListNode *next;
-    char *city;
-}UniqueCitiesListNode_t;
+typedef struct UniqueCitiesListNode {
+    struct UniqueCitiesListNode* next;
+    char* city;
+} UniqueCitiesListNode_t;
 
-typedef struct citiesList
-{
-    struct UniqueCitiesListNode *head;
-}UniqueCitiesList_t;
+typedef struct citiesList {
+    struct UniqueCitiesListNode* head;
+} UniqueCitiesList_t;
 
 #endif //SHORTEST_PATH_LIST_REPRESENTATION_H
