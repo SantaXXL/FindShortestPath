@@ -53,11 +53,6 @@ void printDataBaseError(programError_t error_code)
               "different than distance from city2 to city1!\n"
               "Add connections manually...",
             stderr);
-    } else if (error_code == DIRECTED_CONNECTION) {
-        fputs("DataBase.txt is incorrect!\n"
-              "In this program only undirected connections are allowed!\n"
-              "Add connections manually...",
-            stderr);
     } else if (error_code == INCORRECT_DISTANCE) {
         fputs("DataBase.txt is incorrect!\n"
               "There is a non-positive distance between two cities.\n"
