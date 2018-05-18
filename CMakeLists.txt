@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.6)
 
-project(Shortest_path)
+project(ShortestPath)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+set(CMAKE_C_FLAGS "-std=c99")
 
 include_directories(include)
 
@@ -13,12 +13,12 @@ set(sources
 	"src/FindShortestPath.c"
 	"src/GraphCreation.c"
 	"src/ListCreation.c"
-	"src/main.c"
+	"src/Main.c"
 	"src/ManageCities.c"
 	"src/ManageConnections.c"
 	"src/Menu.c"
 	"src/ProgramInterface.c"
 )
 
-add_executable(Shortest_path ${sources})
+add_executable(ShortestPath ${sources})
 
