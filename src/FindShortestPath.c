@@ -11,6 +11,7 @@
  * are used to find the shortest path between two cities.
  */
 
+#include <float.h>
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
@@ -124,7 +125,7 @@ void findShortestPath(const Graph_t* graph, const char* source, const char* dest
 
     double distance_array[number_of_vertices];
     for (i = 0; i < number_of_vertices; ++i) {
-        distance_array[i] = LLONG_MAX;
+        distance_array[i] = DBL_MAX;
     }
     distance_array[source_number] = 0;
 
@@ -148,7 +149,7 @@ void findShortestPath(const Graph_t* graph, const char* source, const char* dest
         priority_queue[i] = (PQNode_t*)malloc(sizeof(PQNode_t));
         checkMemory(priority_queue[i]);
         priority_queue[i]->city_number = i;
-        priority_queue[i]->key = LLONG_MAX;
+        priority_queue[i]->key = DBL_MAX;
     }
 
     /* Now set source's key to 0 and rebuild the heap. */

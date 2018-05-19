@@ -70,7 +70,7 @@ void removeCity(Graph_t* graph, const char* city)
     AdjacencyList_t *upper, *previous_upper;
     AdjacencyListNode_t* lower;
     size_t how_many_connections = 0;
-    char** connections_array;
+    char** connections_array = NULL;
     size_t i;
     previous_upper = graph->head;
 

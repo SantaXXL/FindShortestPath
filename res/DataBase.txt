@@ -53,7 +53,6 @@ Wroclaw Katowice 195.30
 Wroclaw Poznan 174.00
 Wroclaw Praga 328.00
 Wroclaw Szczecin 370.00
-Wroclaw ZielonaGora 156.70
 Zakopane Katowice 166.70
 Zakopane Rzeszow 246.70
 ZielonaGora Szczecin 223.00

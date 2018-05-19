@@ -97,6 +97,15 @@ void createLists(ConnectionsList_t* connections_list, UniqueCitiesList_t* unique
         return;
     }
 
+    /* Now check if for every City1-City2 connection there is
+     * City2-City1 connection. */
+
+    if (checkIfConnectionsAreUndirected(connections_list) != NO_ERROR) {
+        printDataBaseError(DIRECTED_CONNECTION);
+        fclose(fp);
+        return;
+    }
+
     /* And check, if distance from City1->City2 is the same like
      * from City2->City1. */
 
@@ -321,6 +330,42 @@ UniqueCitiesListNode_t* makeUniqueCityNode(const char* city)
 int stringCmp(const void* p1, const void* p2)
 {
     return strcmp(*(char* const*)p1, *(char* const*)p2);
+}
+
+/*
+ * FUNCTION NAME: checkIfConnectionsAreUndirected
+ *
+ * DESCRIPTION:
+ * Functions checks, if connections are undirected, i.e.
+ * checks, if there is A-B and B-A for every connection in
+ * DataBase.txt
+ *
+ * RETURNS:
+ * NO_ERROR - if everything is fine.
+ *
+ * DIRECTED_CONNECTION - if there is A-B connection
+ * and there is not B-A connection in DataBase.txt file.
+ */
+
+programError_t checkIfConnectionsAreUndirected(const ConnectionsList_t* connections_list)
+{
+    char city1[G_CITYS_NAME_LENGTH];
+    char city2[G_CITYS_NAME_LENGTH];
+    ConnectionsListNode_t *outer, *inner;
+    unsigned int number_of_connections;
+
+    for (outer = connections_list->head; outer != NULL; outer = outer->next) {
+        number_of_connections = 0;
+        strcpy(city1, outer->from);
+        strcpy(city2, outer->to);
+        for (inner = connections_list->head; inner != NULL; inner = inner->next) {
+            if (strcmp(city2, inner->from) == 0 and strcmp(city1, inner->to) == 0)
+                ++number_of_connections;
+        }
+        if (number_of_connections == 0)
+            return DIRECTED_CONNECTION;
+    }
+    return NO_ERROR;
 }
 
 /*

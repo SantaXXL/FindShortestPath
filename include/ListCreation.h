@@ -24,6 +24,7 @@ void addUniqueCitiesToTheList(ConnectionsList_t*, size_t, UniqueCitiesList_t*);
 void addUniqueCityToTheList(UniqueCitiesList_t*, const char*);
 programError_t checkIfNameIsCorrect(const char*);
 programError_t checkIfAlreadyOnTheList(ConnectionsList_t*, const char*, const char*);
+programError_t checkIfConnectionsAreUndirected(const ConnectionsList_t*);
 programError_t checkIfDistancesAreOK(const ConnectionsList_t*);
 programError_t checkIfNamesAreIdentical(const char*, const char*);
 void checkMemory(void*);
