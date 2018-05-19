@@ -26,6 +26,8 @@ Lodz Krakow 235.90
 Lodz Poznan 218.00
 Lublin Rzeszow 163.20
 Lublin Warszawa 171.00
+Nysa Opole 58.60
+Opole Nysa 58.60
 Poznan Bydgoszcz 128.90
 Poznan Gdansk 308.10
 Poznan Lodz 218.00

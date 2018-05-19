@@ -11,6 +11,7 @@
  * create menu interface.
  */
 
+#include <float.h>
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
@@ -196,7 +197,7 @@ void showThePath(shortest_path path, const char* destination, const char* source
 {
     /* If there is no path between source and destination. */
 
-    if (distance_array[destination_number] == LLONG_MAX) {
+    if (distance_array[destination_number] == DBL_MAX) {
         printf("\nCities %s and %s are not connected!\n\n", source, destination);
         printf("Press enter to continue...");
         if (getchar() != '\n') {
