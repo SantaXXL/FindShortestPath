@@ -29,6 +29,3 @@ Voilà, everything is ready and you are good to go
 `./ShortestPath`
 
 To change connections you can either do it from within the application or just edit *res/DataBase.txt*. 
-
-##  **4. License**
-MIT license - use it in any way you like, just remember to give the credit where it's due.
