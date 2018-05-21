@@ -14,7 +14,7 @@ Download the project
 
 Change directory to the newly created folder
 
-`cd ShortestPath`
+`cd FindTheShortestPath`
 
 Run Cmake
 
