@@ -336,7 +336,7 @@ void removeUniqueCitiesList(UniqueCitiesList_t* unique_cities)
 void updateDataBaseFile(const Graph_t* graph)
 {
     FILE* fp;
-    if ((fp = fopen("res/DataBase.txt", "w")) == NULL) {
+    if ((fp = fopen("../res/DataBase.txt", "w")) == NULL) {
         printDataBaseError(CANT_UPDATE_FILE);
         return;
     }

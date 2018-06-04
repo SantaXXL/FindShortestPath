@@ -49,7 +49,7 @@ void createLists(ConnectionsList_t* connections_list, UniqueCitiesList_t* unique
     double distance;
     FILE* fp;
 
-    if ((fp = fopen("res/DataBase.txt", "r")) == NULL) {
+    if ((fp = fopen("../res/DataBase.txt", "r")) == NULL) {
         printDataBaseError(CANT_OPEN_FILE);
         return;
     }
