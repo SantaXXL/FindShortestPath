@@ -12,13 +12,13 @@ Download the project
 
 `git clone https://github.com/santaxl/ShortestPath.git`
 
-Change directory to the newly created folder
+Change directory to the `build` folder
 
-`cd FindTheShortestPath`
+`cd FindTheShortestPath/build`
 
 Run Cmake
 
-`cmake .`
+`cmake ..`
 
 Run make
 
