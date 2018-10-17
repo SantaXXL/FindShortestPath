@@ -1,6 +1,6 @@
 # **Finding The Shortest Path**
 ##  **1. About**
-This program finds and prints the shortest path between a pair of cities, specified by the user. The list of connections between all the cities is located in *res/DataBase.txt* file. Various options, like add/remove a connection, add/remove a city and so on are implemented as well.
+This program finds and prints the shortest path between a pair of cities, specified by user. The list of connections between all the cities is located in *res/DataBase.txt* file. Various options, like add/remove a connection, add/remove a city and so on are implemented as well.
 
 ##  **2. Technical details**
 I used pure (i.e. without any external libraries) C language (C99 standard) and checked for any potential memory leaks with Valgrind. The algorithm used to find the shortest path in the graph is Dijkstra's algorithm with minimum binary heap as a priority queue. The graph is implemented as a list of adjacency lists - from a time perspective the adjacency matrix would be a better choice, but this was my first semester of college and I wanted to learn how to use pointers.
