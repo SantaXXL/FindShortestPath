@@ -1,4 +1,4 @@
-# **Finding The Shortest Path**
+# **Finding Shortest Path**
 ##  **1. About**
 This program finds and prints the shortest path between a pair of cities, specified by user. The list of connections between all the cities is located in *res/DataBase.txt* file. Various options, like add/remove a connection, add/remove a city and so on are implemented as well.
 
