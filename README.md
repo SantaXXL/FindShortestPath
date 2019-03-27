@@ -10,7 +10,7 @@ Note: one of the underlying assumptions in this project is the undirectionality 
 ##  **3. How to run it**
 Download the project
 
-`git clone https://github.com/santaxl/ShortestPath.git`
+`git clone https://github.com/SantaXXL/ShortestPath.git`
 
 Change directory to `FindShortestPath` folder
 
