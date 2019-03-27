@@ -12,9 +12,9 @@ Download the project
 
 `git clone https://github.com/santaxl/ShortestPath.git`
 
-Change directory to `FindTheShortestPath` folder
+Change directory to `FindShortestPath` folder
 
-`cd FindTheShortestPath`
+`cd FindShortestPath`
 
 Create `build` folder and change directory to it
 
