@@ -133,34 +133,34 @@ void addNodeToAdjacencyList(AdjacencyList_t* adjacency_list, const char* to, dou
 
     /* If adjacency list is empty, then create head.
      * If it is not, then check two cases: if there is one element
-     * on the list only or if there are more. */
+     * in the list only or if there are more. */
 
     if (adjacency_list->head == NULL) { /* Empty adjacency list. */
         adjacency_list->head = node;
     } else {
         if (adjacency_list->head->next == NULL) { /* Adjacency list with only 1 element. */
             if (strcmp(to, adjacency_list->head->to) > 0) { /* Compare, if city that is about to be added should */
-                adjacency_list->head->next = node; /* be before or after element that is already on the list. */
+                adjacency_list->head->next = node; /* be before or after element that is already in the list. */
             } else if (strcmp(to, adjacency_list->head->to) < 0) {
                 node->next = adjacency_list->head;
                 adjacency_list->head = node;
             }
         }
 
-        /* If there are more elements on the list, then search
+        /* If there are more elements in the list, then search
              * where element should be added.
              * If previous element is lesser and next is greater (in alphabetical order)
              * then add a node here. */
 
         else if (adjacency_list->head->next != NULL) {
-            /* If added element will be first on the list. */
+            /* If added element will be first in the list. */
 
             if (strcmp(to, adjacency_list->head->to) < 0) {
                 node->next = adjacency_list->head;
                 adjacency_list->head = node;
             }
 
-            /* If added element won't be first on the list. */
+            /* If added element won't be first in the list. */
 
             else {
                 for (temp1 = adjacency_list->head; temp1 != NULL; temp1 = temp1->next) {
